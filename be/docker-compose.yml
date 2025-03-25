@@ -1,0 +1,70 @@
+# docker compose 파일 형식의 버전을 사용함 >> 3.8은 비교적 최신 버전
+version: '3.8'
+
+services:
+  backend:
+    build: . #현재 디렉토리(.)에 있는 Dockerfile을 사용해서 이미지를 빌드해라는 의미
+    image: busankim/ssafyproject:backend # 이미지를 빌드 할때 붙일 이름
+    container_name: backend-app # 컨테이너 이름을 설정
+    ports:
+      - "8080:8080" # 호스와 컨테이너의 포트를 연결한다.
+    depends_on: # Spring Boot 백엔드 애플리케이션은 시작하기 전에 MySQL이랑 MQTT 브로커에 연결을 먼저 시도하므로 depends on을 사용함.
+      mysql-db:
+        condition: service_healthy # 요청을 처리 할 준비가 된 상태(healthy)인지 확인한다. 이것을 쓰기 위해 MySQL service 부분에 healthckeck를 추가함.
+      mosquitto:
+        condition: service_started # MQTT 브로커는 단순히 시작되었는지만 확인한다.
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/ssafydb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ssafyssafy
+      SPRING_MQTT_BROKER_URL: tcp://mosquitto:1883
+      SPRING_MQTT_CLIENT_ID: backend-client
+      SPRING_MQTT_USERNAME: guest
+      SPRING_MQTT_PASSWORD: guest
+      SPRING_MQTT_TOPIC: test/topic
+    networks: # 내가 정의한 app-network 네트워크 >>mysql-db, mosquitto, backend 컨테이너 모두 동일한 app-network에 속함.
+      - app-network
+
+  mysql-db:
+    image: mysql:8.0 #Docker Hub에서 제공하는 MYSQL 8.0이미지 사용하기.
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ssafyssafy
+      MYSQL_DATABASE: ssafydb  # 프로젝트에서 사용한 DB 이름으로 변경
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      start_period: 20s
+
+  # MQTT 브로커 추가
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - mosquitto-config:/mosquitto/config
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  mosquitto-config:
+  mosquitto-data:
+  mosquitto-log:
