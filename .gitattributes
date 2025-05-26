@@ -1,0 +1,1 @@
+sim/ros2_ws/src/ros2_smart_home/warehouse_bot/**/*.data-*-of-* filter=lfs diff=lfs merge=lfs -text
