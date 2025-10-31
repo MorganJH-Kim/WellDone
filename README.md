@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=10&height=200&text=Well-Done's%20GITLAB&fontSize=50&animation=twinkling&fontAlign=68&fontAlignY=36)
+![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=10&height=200&text=Well-Done&fontSize=50&animation=twinkling&fontAlign=68&fontAlignY=36)
 # README
 
 # 🍁창고형 매장을 위한 물품 재고관리 및 자율주행 서비스 **웰던**
