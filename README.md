@@ -39,24 +39,36 @@ Well-Done은 창고형 매장에서 물품을 효율적으로 관리, 이동하�
 - 재고 가감이 생길 경우, 시뮬레이터를 통해 재고관리 자동화를 확인할 수 있습니다.
 
 ---
+## 👨‍💻 나의 역할 및 기여 (My Role & Contributions)
 
+**`프로젝트 총괄 (Team Leader)`** 및 **`백엔드/시뮬레이션`** 담당
+
+- **시뮬레이터 내 객체 인식 기능 구현**: 시뮬레이터 환경에서 로봇이 **YOLOv8 모델을 사용해 물품을 인식**할 수 있도록 ROS2 패키지를 개발했습니다. 이 과정에서 시뮬레이터 내의 센서를 활용하여 로봇이 물체의 위치를 정확히 파악하고 인식하는 핵심 로직을 구현했습니다.
+- **프로젝트 총괄**: 해당 프로젝트의 팀장을 맡음으로서 각 팀원들의 러닝 커브와 jira 를 활용하여 3단계로 task를 구분해 프로젝트 진행도와 문제 해결을 담당하였습니다.
+
+<br>
+
+##  📸 프로젝트 시연 (Demo)
+
+> [![Project Welldone](https://img.youtube.com/vi/2_yxpXvOVcA/0.jpg)](https://www.youtube.com/watch?v=2_yxpXvOVcA)
+<br>
 ## 🛠️ 기술 스택
 
 ### **Front-End**
 
-- Vite, React, Nginx
+- **Vite, React, Nginx**
 
 ### **Back-End**
 
-- Spring Boot, Flask, JPA
+- **Spring Boot, Flask, JPA**
 
 ### **Database & Cache**
 
-- MySQL, Redis
+- **MySQL, Redis**
 
 ### **Infrastructure & DevOps**
 
-- Docker, GitLab Runner, AWS EC2, Nginx
+- **Docker, GitLab Runner, AWS EC2, Nginx**
 
 ### Simulator
 
@@ -166,6 +178,12 @@ Well-Done은 창고형 매장에서 물품을 효율적으로 관리, 이동하�
     - 클라이언트는 **각 요청에서 모든 필요한 정보(예: 인증 토큰)를 포함하여 보내야** 하며, 서버는 이를 기반으로 요청을 처리합니다.
 
 ---
+
+## ⚙️ 설치 및 실행 (Getting Started)
+
+본 프로젝트는 ROS2 시뮬레이터와 웹 서버 등 복합적인 환경 설정이 필요합니다. 상세한 설치 및 실행 방법은 아래의 PDF 매뉴얼을 참고해 주세요.
+
+> **➡️ [포팅 매뉴얼 PDF 바로가기](./exec/포팅메뉴얼.pdf)**
 
 ## 👨‍💻 팀원
 
